@@ -1,1 +1,122 @@
 
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Painel Inicial | Assistência Técnica</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body class="dashboard-body">
+
+    <div class="dashboard-container">
+
+
+        <aside class="sidebar">
+
+            <div class="sidebar-header">
+                <h2>Assistência Técnica</h2>
+                <p>Sistema de gerenciamento</p>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="{{ url_for('index') }}" class="nav-link active">
+                    Início
+                </a>
+
+                <a href="#" class="nav-link">
+                    Clientes
+                </a>
+
+                <a href="#" class="nav-link">
+                    Serviços
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <a href="{{ url_for('login') }}" class="nav-link">
+                    Sair do sistema
+                </a>
+            </div>
+
+        </aside>
+
+  
+        <main class="dashboard-content">
+
+            <header class="dashboard-header">
+                <div>
+                    <h1>Painel Inicial</h1>
+                    <p>Bem-vindo ao sistema de assistência técnica!</p>
+                </div>
+            </header>
+
+            <!-- RESUMO DOS SERVIÇOS -->
+            <section class="dashboard-section">
+
+                <h2>Resumo dos serviços</h2>
+
+                <div class="stats-container">
+
+                    <div class="stat-card">
+                        <h3>Serviços pendentes</h3>
+                        <p>0</p>
+                    </div>
+
+                    <div class="stat-card">
+                        <h3>Em andamento</h3>
+                        <p>0</p>
+                    </div>
+
+                    <div class="stat-card">
+                        <h3>Concluídos</h3>
+                        <p>0</p>
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- ATALHOS -->
+            <section class="dashboard-section">
+
+                <h2>Acesso rápido</h2>
+
+                <div class="shortcuts-container">
+
+                    <a href="#" class="shortcut-card">
+                        <h3>Cadastrar cliente</h3>
+                        <p>Adicionar um novo cliente ao sistema.</p>
+                    </a>
+
+                    <a href="#" class="shortcut-card">
+                        <h3>Registrar serviço</h3>
+                        <p>Cadastrar um novo pedido de conserto.</p>
+                    </a>
+
+                </div>
+
+            </section>
+
+            <!-- SERVIÇOS RECENTES -->
+            <section class="dashboard-section">
+
+                <h2>Serviços recentes</h2>
+
+                <div class="recent-services">
+
+                    <p>Nenhum serviço cadastrado até o momento.</p>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+</body>
+</html>
