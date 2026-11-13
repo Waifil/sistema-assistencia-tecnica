@@ -33,7 +33,13 @@ sistema-assistencia-tecnica/
 ├── database.py
 ├── requirements.txt
 ├── README.md
+│
 ├── templates/
+│   ├── login.html
+│   ├── index.html
+│   ├── clientes.html
+│   └── servicos.html
+│
 └── static/
     └── style.css
 ```
