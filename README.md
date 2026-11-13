@@ -1,12 +1,12 @@
- Sistema de Assistência Técnica
+Sistema de Assistência Técnica
 
- Sobre o projeto
+Sobre o projeto
 
 Este projeto consiste no desenvolvimento de um sistema web para auxiliar na organização de uma assistência técnica.
 
 O objetivo é facilitar o cadastro de clientes, o registro de serviços e o acompanhamento dos consertos, substituindo as anotações feitas manualmente em papéis.
 
- Funcionalidades
+Funcionalidades
 
 - Cadastro de clientes com nome e telefone.
 - Busca de clientes pelo número de telefone.
@@ -17,7 +17,7 @@ O objetivo é facilitar o cadastro de clientes, o registro de serviços e o acom
   - Concluído
 - Consulta dos serviços cadastrados.
 
- Tecnologias utilizadas
+Tecnologias utilizadas
 
 - Python 3.12
 - Flask
@@ -42,6 +42,14 @@ sistema-assistencia-tecnica/
 
 O sistema busca melhorar a organização da assistência técnica, facilitando o controle dos clientes e dos serviços realizados.
 
- Status do projeto
+Status do projeto
 
 Em desenvolvimento. Este projeto faz parte de uma atividade acadêmica de criação de um Produto Mínimo Viável (MVP).
+
+Organização do desenvolvimento
+
+O projeto utiliza Python e Flask para o funcionamento da aplicação,
+HTML e CSS para a interface e SQLite para armazenar os dados.
+
+A estrutura foi organizada para separar as funcionalidades da aplicação
+e facilitar futuras manutenções.
