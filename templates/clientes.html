@@ -1,12 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Clientes | Assistência Técnica</title>
-
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 
@@ -18,104 +15,64 @@
 
             <div class="sidebar-header">
                 <h2>Assistência Técnica</h2>
-                <p>Sistema de gerenciamento</p>
             </div>
 
             <nav class="sidebar-nav">
-                <a href="{{ url_for('index') }}" class="nav-link">
-                    Início
-                </a>
-
-                <a href="{{ url_for('clientes') }}" class="nav-link active">
-                    Clientes
-                </a>
-
-                <a href="#" class="nav-link">
-                    Serviços
-                </a>
+                <a href="{{ url_for('index') }}">Início</a>
+                <a href="{{ url_for('clientes') }}" class="active">Clientes</a>
+                <a href="{{ url_for('servicos') }}">Serviços</a>
             </nav>
 
             <div class="sidebar-footer">
-                <a href="{{ url_for('login') }}" class="nav-link">
-                    Sair do sistema
-                </a>
-            </div>
+    <a href="{{ url_for('sair') }}" class="nav-link">Sair</a>
+</div>
 
         </aside>
 
-        <main class="dashboard-content">
+        <main class="dashboard-main">
 
             <header class="dashboard-header">
                 <div>
                     <h1>Clientes</h1>
-                    <p>Cadastre e consulte os clientes da assistência técnica.</p>
+                    <p>Cadastre e consulte os clientes da assistência.</p>
                 </div>
+
+                <button id="botao-contraste" type="button" onclick="alternarContraste()">
+                    Alto contraste
+                </button>
             </header>
 
             <section class="dashboard-section">
 
-                <h2>Cadastrar novo cliente</h2>
+                <h2>Cadastrar cliente</h2>
 
-                <div class="client-form-card">
-
-                    <form action="#" method="POST">
-
-                        <div class="form-group">
-                            <label for="nome">Nome completo</label>
-
-                            <input
-                                type="text"
-                                id="nome"
-                                name="nome"
-                                placeholder="Digite o nome do cliente"
-                                required
-                            >
+                {% with mensagens = get_flashed_messages(category_filter=["clientes"]) %}
+                    {% if mensagens %}
+                        <div class="login-messages">
+                            {% for mensagem in mensagens %}
+                                <p>{{ mensagem }}</p>
+                            {% endfor %}
                         </div>
+                    {% endif %}
+                {% endwith %}
 
-                        <div class="form-group">
-                            <label for="telefone">Telefone</label>
-
-                            <input
-                                type="tel"
-                                id="telefone"
-                                name="telefone"
-                                placeholder="(00) 00000-0000"
-                                required
-                            >
-                        </div>
-
-                        <button type="submit" class="login-button">
-                            Cadastrar cliente
-                        </button>
-
-                    </form>
-
-                </div>
-
-            </section>
-
-            <section class="dashboard-section">
-
-                <h2>Consultar clientes</h2>
-
-                <div class="client-search-card">
+                <form method="POST" class="client-form">
 
                     <div class="form-group">
-                        <label for="pesquisa">Pesquisar cliente</label>
-
-                        <input
-                            type="search"
-                            id="pesquisa"
-                            name="pesquisa"
-                            placeholder="Digite o nome ou telefone do cliente"
-                        >
+                        <label for="nome">Nome do cliente</label>
+                        <input type="text" id="nome" name="nome" required>
                     </div>
 
-                    <button type="button" class="login-button">
-                        Pesquisar
+                    <div class="form-group">
+                        <label for="telefone">Telefone</label>
+                        <input type="tel" id="telefone" name="telefone" required>
+                    </div>
+
+                    <button type="submit" class="login-button">
+                        Cadastrar cliente
                     </button>
 
-                </div>
+                </form>
 
             </section>
 
@@ -123,7 +80,24 @@
 
                 <h2>Clientes cadastrados</h2>
 
-                <div class="client-table-card">
+                <form method="GET" class="search-form">
+
+                    <input
+                        type="text"
+                        name="pesquisa"
+                        placeholder="Pesquisar por nome ou telefone"
+                        value="{{ pesquisa }}"
+                    >
+
+                    <button type="submit" class="login-button">Pesquisar</button>
+
+                    {% if pesquisa %}
+                        <a href="{{ url_for('clientes') }}" class="clear-search">Limpar</a>
+                    {% endif %}
+
+                </form>
+
+                <div class="table-container">
 
                     <table class="client-table">
 
@@ -135,11 +109,18 @@
                         </thead>
 
                         <tbody>
-                            <tr>
-                                <td colspan="2" class="empty-message">
-                                    Nenhum cliente cadastrado até o momento.
-                                </td>
-                            </tr>
+                            {% for cliente in clientes %}
+                                <tr>
+                                    <td>{{ cliente.nome }}</td>
+                                    <td>{{ cliente.telefone }}</td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="2" class="empty-message">
+                                        Nenhum cliente encontrado.
+                                    </td>
+                                </tr>
+                            {% endfor %}
                         </tbody>
 
                     </table>
@@ -152,6 +133,7 @@
 
     </div>
 
+    <script src="{{ url_for('static', filename='acessibilidade.js') }}"></script>
+
 </body>
 </html>
-
