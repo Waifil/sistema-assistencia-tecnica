@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Serviços | Assistência Técnica</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body class="dashboard-body">
+
+    <div class="dashboard-container">
+
+        <aside class="sidebar">
+
+            <div class="sidebar-header">
+                <h2>Assistência Técnica</h2>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="{{ url_for('index') }}">Início</a>
+                <a href="{{ url_for('clientes') }}">Clientes</a>
+                <a href="{{ url_for('servicos') }}" class="active">Serviços</a>
+            </nav>
+
+            <div class="sidebar-footer">
+    <a href="{{ url_for('sair') }}" class="nav-link">Sair</a>
+</div>
+
+        </aside>
+
+        <main class="dashboard-main">
+
+            <header class="dashboard-header">
+                <div>
+                    <h1>Serviços</h1>
+                    <p>Registre e acompanhe os consertos.</p>
+                </div>
+
+                <button id="botao-contraste" type="button" onclick="alternarContraste()">
+                    Alto contraste
+                </button>
+            </header>
+
+            <section class="dashboard-section">
+
+                <h2>Registrar serviço</h2>
+
+                {% with mensagens = get_flashed_messages(category_filter=["servicos"]) %}
+                    {% if mensagens %}
+                        <div class="login-messages">
+                            {% for mensagem in mensagens %}
+                                <p>{{ mensagem }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                {% endwith %}
+
+                <form method="POST" class="service-form">
+
+                    <div class="form-group">
+                        <label for="telefone">Telefone do cliente</label>
+                        <input type="tel" id="telefone" name="telefone" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="aparelho">Aparelho</label>
+                        <input type="text" id="aparelho" name="aparelho" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="descricao">Descrição do problema</label>
+                        <textarea id="descricao" name="descricao" rows="3" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="data">Data de cadastro</label>
+                        <input type="date" id="data" name="data" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="status">Status</label>
+                        <select id="status" name="status" required>
+                            <option value="Pendente">Pendente</option>
+                            <option value="Em andamento">Em andamento</option>
+                            <option value="Concluído">Concluído</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="login-button">
+                        Registrar serviço
+                    </button>
+
+                </form>
+
+            </section>
+
+            <section class="dashboard-section">
+
+                <h2>Serviços registrados</h2>
+
+                <form method="GET" class="search-form">
+
+                    <input
+                        type="text"
+                        name="pesquisa"
+                        placeholder="Pesquisar por telefone ou aparelho"
+                        value="{{ pesquisa }}"
+                    >
+
+                    <button type="submit" class="login-button">Pesquisar</button>
+
+                    {% if pesquisa %}
+                        <a href="{{ url_for('servicos') }}" class="clear-search">Limpar</a>
+                    {% endif %}
+
+                </form>
+
+                <div class="table-container">
+
+                    <table class="service-table">
+
+                        <thead>
+                            <tr>
+                                <th>Cliente</th>
+                                <th>Telefone</th>
+                                <th>Aparelho</th>
+                                <th>Problema</th>
+                                <th>Data</th>
+                                <th>Status</th>
+                                <th>Alterar status</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {% for servico in servicos %}
+                                <tr>
+                                    <td>{{ servico.nome }}</td>
+                                    <td>{{ servico.telefone }}</td>
+                                    <td>{{ servico.aparelho }}</td>
+                                    <td>{{ servico.descricao_problema }}</td>
+                                    <td>{{ servico.data_cadastro }}</td>
+                                    <td>{{ servico.status }}</td>
+                                    <td>
+                                        <form
+                                            action="{{ url_for('atualizar_status', id_servico=servico.id_servico) }}"
+                                            method="POST"
+                                            class="status-form"
+                                        >
+
+                                            <input
+                                                type="hidden"
+                                                name="pesquisa"
+                                                value="{{ pesquisa }}"
+                                            >
+
+                                            <select name="status" aria-label="Novo status do serviço" required>
+                                                <option value="Pendente" {% if servico.status == "Pendente" %}selected{% endif %}>
+                                                    Pendente
+                                                </option>
+
+                                                <option value="Em andamento" {% if servico.status == "Em andamento" %}selected{% endif %}>
+                                                    Em andamento
+                                                </option>
+
+                                                <option value="Concluído" {% if servico.status == "Concluído" %}selected{% endif %}>
+
+                                                    <option value="Entregue">Entregue</option>
+                                                    Concluído
+                                                </option>
+                                            </select>
+
+                                            <button type="submit" class="login-button">
+                                                Salvar
+                                            </button>
+
+                                        </form>
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="7" class="empty-message">
+                                        Nenhum serviço encontrado.
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+    <script src="{{ url_for('static', filename='acessibilidade.js') }}"></script>
+
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clientes | Assistência Técnica</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body class="dashboard-body">
+
+    <div class="dashboard-container">
+
+        <aside class="sidebar">
+
+            <div class="sidebar-header">
+                <h2>Assistência Técnica</h2>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="{{ url_for('index') }}">Início</a>
+                <a href="{{ url_for('clientes') }}" class="active">Clientes</a>
+                <a href="{{ url_for('servicos') }}">Serviços</a>
+            </nav>
+
+            <div class="sidebar-footer">
+    <a href="{{ url_for('sair') }}" class="nav-link">Sair</a>
+</div>
+
+        </aside>
+
+        <main class="dashboard-main">
+
+            <header class="dashboard-header">
+                <div>
+                    <h1>Clientes</h1>
+                    <p>Cadastre e consulte os clientes da assistência.</p>
+                </div>
+
+                <button id="botao-contraste" type="button" onclick="alternarContraste()">
+                    Alto contraste
+                </button>
+            </header>
+
+            <section class="dashboard-section">
+
+                <h2>Cadastrar cliente</h2>
+
+                {% with mensagens = get_flashed_messages(category_filter=["clientes"]) %}
+                    {% if mensagens %}
+                        <div class="login-messages">
+                            {% for mensagem in mensagens %}
+                                <p>{{ mensagem }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                {% endwith %}
+
+                <form method="POST" class="client-form">
+
+                    <div class="form-group">
+                        <label for="nome">Nome do cliente</label>
+                        <input type="text" id="nome" name="nome" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="telefone">Telefone</label>
+                        <input type="tel" id="telefone" name="telefone" required>
+                    </div>
+
+                    <button type="submit" class="login-button">
+                        Cadastrar cliente
+                    </button>
+
+                </form>
+
+            </section>
+
+            <section class="dashboard-section">
+
+                <h2>Clientes cadastrados</h2>
+
+                <form method="GET" class="search-form">
+
+                    <input
+                        type="text"
+                        name="pesquisa"
+                        placeholder="Pesquisar por nome ou telefone"
+                        value="{{ pesquisa }}"
+                    >
+
+                    <button type="submit" class="login-button">Pesquisar</button>
+
+                    {% if pesquisa %}
+                        <a href="{{ url_for('clientes') }}" class="clear-search">Limpar</a>
+                    {% endif %}
+
+                </form>
+
+                <div class="table-container">
+
+                    <table class="client-table">
+
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Telefone</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {% for cliente in clientes %}
+                                <tr>
+                                    <td>{{ cliente.nome }}</td>
+                                    <td>{{ cliente.telefone }}</td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="2" class="empty-message">
+                                        Nenhum cliente encontrado.
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+    <script src="{{ url_for('static', filename='acessibilidade.js') }}"></script>
+
+</body>
+</html>
