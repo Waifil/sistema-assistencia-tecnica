@@ -8,15 +8,20 @@ O objetivo é facilitar o cadastro de clientes, o registro de serviços e o acom
 
 ## Funcionalidades
 
+- Cadastro de usuários e acesso ao sistema.
 - Cadastro de clientes com nome e telefone.
-- Busca de clientes pelo número de telefone.
+- Busca de clientes pelo nome ou número de telefone.
+- Exibição dos últimos 5 clientes cadastrados, mantendo todos os registros armazenados.
 - Registro de serviços e descrição dos problemas.
 - Acompanhamento dos serviços por status:
   - Pendente
   - Em andamento
   - Concluído
   - Entregue
+- Atualização do status dos serviços.
 - Consulta dos serviços cadastrados.
+- Painel inicial com resumo dos serviços.
+- Recurso de acessibilidade com alto contraste.
 
 ## Tecnologias utilizadas
 
@@ -29,6 +34,7 @@ O objetivo é facilitar o cadastro de clientes, o registro de serviços e o acom
 
 ## Estrutura do projeto
 
+```text
 ├── README.md
 │
 └── Assistencia Tecnica/
@@ -39,6 +45,8 @@ O objetivo é facilitar o cadastro de clientes, o registro de serviços e o acom
         ├── database.py
         ├── requirements.txt
         │
+        ├── __pycache__/
+        │
         ├── templates/
         │   ├── login.html
         │   ├── index.html
@@ -48,9 +56,11 @@ O objetivo é facilitar o cadastro de clientes, o registro de serviços e o acom
         └── static/
             ├── style.css
             └── acessibilidade.js
+```
+
 ## Objetivo
 
-O sistema busca melhorar a organização da assistência técnica, facilitando o controle dos clientes e dos serviços realizados.
+O sistema busca melhorar a organização da assistência técnica, facilitando o controle dos clientes e dos serviços realizados. Dessa forma, pretende reduzir a dependência de anotações em papel e tornar a consulta das informações mais prática.
 
 ## Status do projeto
 
