@@ -29,18 +29,25 @@ O objetivo é facilitar o cadastro de clientes, o registro de serviços e o acom
 
 ## Estrutura do projeto
 
-```text
-sistema-assistencia-tecnica/
-├── app.py
-├── database.py
-├── requirements.txt
 ├── README.md
-├── templates/
-└── static/
-    ├── style.css
-    └── acessibilidade.js
-```
-
+│
+└── Assistencia Tecnica/
+    ├── start.bat
+    │
+    └── sistema/
+        ├── app.py
+        ├── database.py
+        ├── requirements.txt
+        │
+        ├── templates/
+        │   ├── login.html
+        │   ├── index.html
+        │   ├── clientes.html
+        │   └── servicos.html
+        │
+        └── static/
+            ├── style.css
+            └── acessibilidade.js
 ## Objetivo
 
 O sistema busca melhorar a organização da assistência técnica, facilitando o controle dos clientes e dos serviços realizados.
